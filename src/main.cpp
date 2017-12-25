@@ -39,9 +39,9 @@ int main()
 
   PID pid;
   double steer_p, steer_i, steer_d = 0.0;
-  steer_p = 0.2;
-  steer_i = 3.0;
-  steer_d = 0.004;
+  steer_p = 1.0;
+  steer_i = 1.0;
+  steer_d = 1.0;
   pid.Init(steer_p, steer_i, steer_d);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
@@ -71,7 +71,7 @@ int main()
           * another PID controller to control the speed!
           */
 		  pid.UpdateError(cte);
-		  steer_value = deg2rad(angle + pid.TotalError());
+		  steer_value = pid.TotalError();
 
 		  // DEBUG
 		  std::cout << " Steering Value: " << steer_value << std::endl;
