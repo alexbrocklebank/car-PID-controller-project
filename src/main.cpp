@@ -13,7 +13,7 @@ double deg2rad(double x) { return x * pi() / 180; }
 double rad2deg(double x) { return x * 180 / pi(); }
 
 PID speed;
-PID steering;
+PID pid;
 
 // Checks if the SocketIO event has JSON data.
 // If there is data the JSON object in string format will be returned,
@@ -41,7 +41,7 @@ int main()
 
   double steer_p, steer_i, steer_d = 0.0;
   // TODO: Initialize the parameters
-  steering.Init(steer_p, steer_i, steer_d);
+  pid.Init(steer_p, steer_i, steer_d);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -65,7 +65,7 @@ int main()
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
-		  steer_value = steering.TotalError();
+		  steer_value = pid.TotalError();
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
