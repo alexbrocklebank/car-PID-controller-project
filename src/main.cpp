@@ -71,7 +71,8 @@ int main()
           * another PID controller to control the speed!
           */
 		  pid.UpdateError(cte);
-		  steer_value = rad2deg(pid.TotalError());
+		  //steer_value = rad2deg(pid.TotalError());
+		  steer_value = 0.5;
 
 		  // DEBUG
 		  std::cout << " Steering Value: " << steer_value << std::endl;
