@@ -2,6 +2,7 @@
 #include <iostream>
 #include "json.hpp"
 #include "PID.h"
+#include "Twiddle.h"
 #include <math.h>
 
 // for convenience
@@ -28,6 +29,15 @@ std::string hasData(std::string s) {
   return "";
 }
 
+/* Resetting the Simulator
+* Thanks to Shehjar for this code!
+* https://github.com/shehjar/Term2_P4_PID_Controller/blob/master/src/main.cpp
+*/
+void reset_simulator(uWS::WebSocket<uWS::SERVER>& ws) {
+	std::string msg("42[\"reset\",{}]");
+	ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+}
+
 int main()
 {
   uWS::Hub h;
@@ -39,9 +49,9 @@ int main()
 
   PID pid;
   double steer_p, steer_i, steer_d = 0.0;
-  steer_p = 0.2;
-  steer_i = 0.004;
-  steer_d = 3.0;
+  steer_p = 0.1;
+  steer_i = 0.002;
+  steer_d = 1.0;
   pid.Init(steer_p, steer_i, steer_d);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
