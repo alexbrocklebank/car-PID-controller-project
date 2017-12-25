@@ -12,9 +12,6 @@ constexpr double pi() { return M_PI; }
 double deg2rad(double x) { return x * pi() / 180; }
 double rad2deg(double x) { return x * 180 / pi(); }
 
-PID speed;
-PID pid;
-
 // Checks if the SocketIO event has JSON data.
 // If there is data the JSON object in string format will be returned,
 // else the empty string "" will be returned.
@@ -35,12 +32,16 @@ int main()
 {
   uWS::Hub h;
 
+  PID speed;
   double k_p, k_i, k_d = 0.0;
   // TODO: Initialize the parameters
   speed.Init(k_p, k_i, k_d);
 
+  PID pid;
   double steer_p, steer_i, steer_d = 0.0;
-  // TODO: Initialize the parameters
+  steer_p = 0.2;
+  steer_i = 3.0;
+  steer_d = 0.004;
   pid.Init(steer_p, steer_i, steer_d);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
