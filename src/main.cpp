@@ -39,8 +39,8 @@ int main()
 
   PID pid;
   double steer_p, steer_i, steer_d = 0.0;
-  steer_p = 1.0;
-  steer_i = 1.0;
+  steer_p = 0.1;
+  steer_i = 0.01;
   steer_d = 1.0;
   pid.Init(steer_p, steer_i, steer_d);
 
@@ -71,8 +71,8 @@ int main()
           * another PID controller to control the speed!
           */
 		  pid.UpdateError(cte);
-		  //steer_value = rad2deg(pid.TotalError());
-		  steer_value = 0.5;
+		  steer_value = pid.TotalError();
+		  //steer_value = 0.5;
 
 		  // DEBUG
 		  std::cout << " Steering Value: " << steer_value << std::endl;
