@@ -60,6 +60,10 @@ int main()
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
           double steer_value;
+
+		  // DEBUG
+		  std::cout << "Angle: " << angle;
+
           /*
           * TODO: Calcuate steering value here, remember the steering value is
           * [-1, 1].
@@ -68,9 +72,10 @@ int main()
           */
 		  pid.UpdateError(cte);
 		  steer_value = angle * pid.TotalError();
-          
-          // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+
+		  // DEBUG
+		  std::cout << " Steering Value: " << steer_value << std::endl;
+          std::cout << "CTE: " << cte << " Speed: " << speed << std::endl;
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
