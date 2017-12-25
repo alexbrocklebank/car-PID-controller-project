@@ -17,21 +17,22 @@ void PID::Init(double Kp, double Ki, double Kd) {
 	Kp = Kp;
 	Ki = Ki;
 	Kd = Kd;
-	prev_cte = 0.0;
 }
 
 void PID::UpdateError(double cte) {
-	if (prev_cte == 0.0) {
-		prev_cte = cte;
-	}
-	double diff_cte = cte - prev_cte;
-	prev_cte = cte;
-	p_error = cte * -Kp;
-	i_error = (i_error + cte) * -Ki;
-	d_error = diff_cte * -Kd;
+	d_error = cte - p_error;
+	p_error = cte;
+	i_error += cte;
 }
 
 double PID::TotalError() {
-	return (p_error + i_error + d_error);
+	double total_error = -Kp * p_error - Ki * i_error - Kd * d_error);
+	if (total_error > 1.0) {
+		total_error = 1.0;
+	}
+	else if (total_error < -1.0) {
+		total_error = -1.0;
+	}
+	return total_error;
 }
 
