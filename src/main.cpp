@@ -32,8 +32,15 @@ int main()
 {
   uWS::Hub h;
 
-  PID pid;
-  // TODO: Initialize the pid variable.
+  PID speed = new PID();
+  double k_p, k_i, k_d = 0.0;
+  // TODO: Initialize the parameters
+  pid.Init(k_p, k_i, k_d);
+
+  PID steering = new PID();
+  double steer_p, steer_i, steer_d = 0.0;
+  // TODO: Initialize the parameters
+  steering.Init(steer_p, steer_i, steer_d);
 
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -57,6 +64,7 @@ int main()
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
+		  steer_value = steering.TotalError();
           
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
