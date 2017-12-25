@@ -32,12 +32,12 @@ int main()
 {
   uWS::Hub h;
 
-  PID speed = new PID();
+  PID speed;
   double k_p, k_i, k_d = 0.0;
   // TODO: Initialize the parameters
   pid.Init(k_p, k_i, k_d);
 
-  PID steering = new PID();
+  PID steering;
   double steer_p, steer_i, steer_d = 0.0;
   // TODO: Initialize the parameters
   steering.Init(steer_p, steer_i, steer_d);
