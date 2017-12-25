@@ -9,7 +9,7 @@ public:
 	int n;
 	int max_steps;
 
-	double[] dP;
+	double dP[];
 
 	double err;
 	double best_err;
