@@ -11,24 +11,24 @@ PID::PID() {}
 PID::~PID() {}
 
 void PID::Init(double Kp, double Ki, double Kd) {
-	this.p_error = 0.0;
-	this.i_error = 0.0;
-	this.d_error = 0.0;
-	this.Kp = Kp;
-	this.Ki = Ki;
-	this.Kd = Kd;
-	this.prev_cte = 0.0;
+	p_error = 0.0;
+	i_error = 0.0;
+	d_error = 0.0;
+	Kp = Kp;
+	Ki = Ki;
+	Kd = Kd;
+	prev_cte = 0.0;
 }
 
 void PID::UpdateError(double cte) {
-	if (this.prev_cte == 0.0) {
-		this.prev_cte = cte;
+	if (prev_cte == 0.0) {
+		prev_cte = cte;
 	}
 	double diff_cte = cte - prev_cte;
-	this.prev_cte = cte;
-	this.p_error = cte * -this.Kp;
-	this.i_error = (this.i_error + cte) * -this.Ki;
-	this.d_error = diff_cte * -this.Kd;
+	prev_cte = cte;
+	p_error = cte * -Kp;
+	i_error = (i_error + cte) * -Ki;
+	d_error = diff_cte * -Kd;
 }
 
 double PID::TotalError() {
