@@ -1,31 +1,44 @@
 #ifndef Twiddle_H
 #define Twiddle_H
 
+struct Parameter {
+	bool up, down;
+	double value;
+};
+
 class Twiddle {
-public:
-	/*
-	* Twiddle
-	*/
-	int n;
-	int max_steps;
+	public:
+		/*
+		* Twiddle
+		*/
+		bool to_twiddle;
 
-	double dP[];
+		int num_params;
+		int num_steps;
+		int current_step;
 
-	double err;
-	double best_err;
+		std::vector<Parameter> dP;
+		std::vector<double> best_param;
 
-
-	/*
-	* Constructor
-	*/
-	Twiddle();
-
-	/*
-	* Destructor.
-	*/
-	virtual ~Twiddle();
+		double err;
+		double best_err;
 
 
+		/*
+		* Constructor
+		*/
+		Twiddle();
+
+		/*
+		* Destructor.
+		*/
+		virtual ~Twiddle();
+
+
+		void Init(int n_params, int n_steps);
+
+
+		bool maxDistance();
 };
 
 #endif /* Twiddle_H */

@@ -42,6 +42,11 @@ int main()
 {
   uWS::Hub h;
 
+  Twiddle t;
+  t.Init(3, 5000);
+  // To Twiddle or Not to Twiddle?
+  t.to_twiddle = true;
+
   PID speed;
   double k_p, k_i, k_d = 0.0;
   // TODO: Initialize the parameters
@@ -80,6 +85,20 @@ int main()
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
+		  if (t.to_twiddle) {
+			  t.current_step += 1;
+			  t.err += cte*cte;
+			  t.average_err = t.err / t.current_step;
+
+			  if (t.maxDistance() || (std::fabs(cte) >= 2.2)) {
+
+			  }
+			  else {
+				  if (t.avgerage_err < t.best_err) {
+					  t.best_err = t.average_err;
+				  }
+			  }
+		  }
 		  pid.UpdateError(cte);
 		  steer_value = pid.TotalError();
 		  //steer_value = 0.5;
