@@ -49,7 +49,7 @@ int main()
   PID pid;
   double steer_p, steer_i, steer_d = 0.0;
   steer_p = 0.13;       // 0.13
-  steer_i = 0.0007;      // 0.0008
+  steer_i = 0.0007;      // 0.0007
   steer_d = 4.0;        // 4.0
   pid.Init(steer_p, steer_i, steer_d);
 
@@ -71,7 +71,7 @@ int main()
           double steer_value;
 
           /*
-          * TODO: Calcuate steering value here, remember the steering value is
+          * Calcuate steering value here, remember the steering value is
           * [-1, 1].
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
@@ -80,7 +80,7 @@ int main()
 		  steer_value = pid.TotalError();
 
 		  // DEBUG
-          std::cout << "CTE: " << cte << " Steering: " << steer_value << std::endl;
+          //std::cout << "CTE: " << cte << " Steering: " << steer_value << std::endl;
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
